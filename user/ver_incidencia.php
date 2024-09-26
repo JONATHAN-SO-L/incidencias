@@ -95,7 +95,17 @@ if ($buscar_incidencia -> rowCount() > 0) {
         <label for="inputEmail3" class="col-sm-2 control-label">Puesto</label>
         <div class="col-sm-10">
         <div class="input-group">
-        <input type="email" class="form-control" name="puesto" readonly value="'.$incidencia -> puesto.'">
+        <input type="text" class="form-control" name="puesto" readonly value="'.$incidencia -> puesto.'">
+        <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+        </div> 
+        </div>
+        </div>
+
+        <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Sede</label>
+        <div class="col-sm-10">
+        <div class="input-group">
+        <input type="text" class="form-control" name="sede" readonly value="'.$incidencia -> sede.'">
         <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
         </div> 
         </div>
