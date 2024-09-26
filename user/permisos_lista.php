@@ -73,6 +73,7 @@ footer {
                                         <thead>
                                             <tr>
                                             <th class="text-center">Acción</th>
+                                            <th class="text-center">Folio / ID</th>
                                             <th class="text-center">Clave de Colaborador</th>
                                             <th class="text-center">Nombre Completo</th>
                                             <th class="text-center">Área</th>
@@ -92,6 +93,7 @@ footer {
                                                     <a href='ver_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-primary' title='Ver Incidencia'><i class='fa fa-eye' aria-hidden='true'></i> Ver Detalles</a>
                                                 </td>"
                                         ?>
+                                                <td class="text-center"><?php echo $permiso->id_permiso; ?></td>
                                                 <td class="text-center"><?php echo $permiso->no_empleado; ?></td>
                                                 <td class="text-center"><?php echo $permiso->nombre_colaborador; ?></td>
                                                 <td class="text-center"><?php echo $permiso->area; ?></td>
