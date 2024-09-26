@@ -11,7 +11,7 @@ $fecha_fin = $_POST['fecha2'];
 $f = fopen('php://memory', 'a');
 
 //crea los encabezados de las columnas
-$fields = array('Clave de Colaborador', 'Nombre Completo', 'Fecha de Ingreso', 'Estatus', 'Puesto', 'Area', 'Departamento', 'Sede', 'Jefe Inmediato', 'Incidencia', 'Fecha de Ausencia', 'Dias Solicitados', 'Observaciones');
+$fields = array('ID / Folio', 'Clave de Colaborador', 'Nombre Completo', 'Fecha de Ingreso', 'Estatus', 'Puesto', 'Area', 'Departamento', 'Sede', 'Jefe Inmediato', 'Fecha de Creacion Incidencia', 'Hora de Creacion de Incidencia', 'Incidencia', 'Goce de Sueldo', 'Fecha de Ausencia', 'Hora de Salida', 'Hora de Regreso','Dias Solicitados', 'Observaciones');
 
 fputcsv($f, $fields, $delimiter);
 
@@ -21,7 +21,7 @@ $value="SELECT * FROM permisos WHERE fecha_ausencia BETWEEN '$fecha_inicio' AND 
 $result = $mysqli->query($value);
 
 while($d = $result->fetch_assoc()){
-    $lineData = array($d["no_empleado"], $d["nombre_colaborador"], '', '',  $d["puesto"], $d["area"], $d["linea"], '', $d["gerente_jefe"], $d["motivo_ausencia"], $d["fecha_ausencia"], $d['dias_solicitados'], $d["observaciones"]);
+    $lineData = array($d["id_permiso"], $d["no_empleado"], $d["nombre_colaborador"], '', '',  $d["puesto"], $d["area"], $d["linea"], $d["sede"], $d["gerente_jefe"], $d["fecha_creacion"], $d["hora_creacion"], $d["motivo_ausencia"], $d["goce_sueldo"], $d["fecha_ausencia"], $d["hora_salida"], $d["hora_regreso"], $d['dias_solicitados'], $d["observaciones"]);
 
 		fputcsv($f, $lineData, $delimiter);
 
