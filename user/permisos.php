@@ -110,6 +110,8 @@ if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="user
 
 									<input type="hidden" class="form-control" value="<?php echo $_SESSION['nombre_completo']; ?>" name="jefe_gerente" placeholder="Ejemplo: Jorge Martinez">
 
+									<input type="hidden" class="form-control" value="<?php echo $_SESSION['ubi']; ?>" name="sede" placeholder="Ejemplo: Oficinas">
+
 									<div class="form-group">
 										<label  class="col-sm-2 control-label">Área</label>
 										<div class="col-sm-10">
@@ -124,8 +126,8 @@ if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="user
 										<label  class="col-sm-2 control-label">Motivo de Ausencia</label>
 										<div class="col-sm-10">
 											<div class='input-group'>
-												<select class="form-control" name="motivo_ausencia" required>
-													<option value=""> - Selecciona el permiso - </option>
+												<select class="form-control" name="motivo_ausencia" required onclick="toggle(this);">
+													<option value="0"> - Selecciona el permiso - </option>
 													<?php
 													// Buscar los tipos de permisos/motivos de ausencia en la base de datos correspondiente
 													$m_ausencia = $con->prepare("SELECT motivo_ausencia FROM motivo_ausencia");
@@ -167,25 +169,27 @@ if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="user
 										</div>
 									</div>
 
-									<font size=2 color="red">(El horario de trabajo es de 07:00 AM - 06:00 PM)</font>
+									<div class="horas_habilitadas" style="display: none">
+										<font size=2 color="red">(El horario de trabajo es de 07:00 AM - 06:00 PM)</font>
 
-									<div class="form-group"><br>
+										<div class="form-group"><br>
 										<label  class="col-sm-2 control-label">Hora de Salida</label>
 										<div class="col-sm-10">
-											<div class='input-group'>
-												<input type="time" class="form-control" name="hora_salida" value="08:00">
-												<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-											</div>
+										<div class='input-group'>
+										<input type="time" class="form-control" name="hora_salida">
+										<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
 										</div>
-									</div>
+										</div>
+										</div>
 
-									<div class="form-group">
+										<div class="form-group">
 										<label  class="col-sm-2 control-label">Hora de Regreso</label>
 										<div class="col-sm-10">
-											<div class='input-group'>
-												<input type="time" class="form-control" name="hora_regreso" value="17:00">
-												<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-											</div>
+										<div class='input-group'>
+										<input type="time" class="form-control" name="hora_regreso">
+										<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+										</div>
+										</div>
 										</div>
 									</div>
 
@@ -197,6 +201,21 @@ if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="user
 												<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
 											</div>
 										</div>
+									</div>
+
+									<div class="goce_sueldo" style="display: none">
+									<div class="form-group">
+										<label  class="col-sm-2 control-label">Goce de Sueldo</label>
+										<div class="col-sm-10">
+											<div class='input-group'>
+												<select class="form-control" name="goce_sueldo" id="goce_sueldo">
+													<option value="0"> - Selecciona según aplique - </option>
+													<option value="Si">Si</option>
+													<option value="No">No</option>
+												</select><span class="input-group-addon"><i class="fa fa-user"></i></span>
+											</div>
+										</div>
+									</div>
 									</div>
 
 									<div class="form-group">
@@ -265,6 +284,7 @@ if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="user
 		$("#fechainput").datepicker();
 	});
 </script>
+<script type="text/javascript" src="../checador/functions/search/functions.js"></script>
 <!--script type="text/javascript" src="../checador/functions/search/buscar_no_empleado.js"></script>
 <script type="text/javascript" src="../checador/functions/search/buscar_puesto.js"></script>
 <script type="text/javascript" src="../checador/functions/search/buscar_departamento.js"></script-->
