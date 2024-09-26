@@ -1,11 +1,4 @@
 <?php
-/*
-* @author: Meraz Prudencio Griselda  
-* ghriz2811@gmail.com
-* @version: 08/2019 v1
-*/
-?>
-<?php
 if(isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])){
     include "./process2/login.php";
 }
