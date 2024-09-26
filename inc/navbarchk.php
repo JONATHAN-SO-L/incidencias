@@ -1,5 +1,5 @@
 <?php
-include 'links.php';
+include '../checador/functions/links2.php';
 ?>
 <style>
 .dropdown-menu {
@@ -8,7 +8,7 @@ include 'links.php';
     left: -150%;
 }
 
-/* Estilo de barra de navegación Soporte */
+/* Estilo de barra de navegación del Checador Virtual */
 .navbar-sop {
     background-color: #137098;
     border-color: #1fe61c;
@@ -23,6 +23,7 @@ a.navbar-brand {
     position: fixed;
 }
 </style>
+<title>Checador Virtual</title>
 <nav class="navbar navbar-sop navbar-fixed-top" role="navigation">
 <div class="container-fluid">
 <div class="navbar-header">
