@@ -42,10 +42,10 @@ if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="user
 					<div class="col-sm-2">
 						<img src="../img/permiso2.png" class="img-responsive permiso-top">
 					</div>
-			
-					<div class="col-sm-9 lead">
-						<h3 class="text-success">¿Cómo enviar un permiso?</h3>
-						<p>Para registrar un permiso, deberás llenar todos los campos del siguiente formulario.</p>
+
+					<div class="alert alert-success alert-dismissible">
+					<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+					<strong>Success!</strong> This alert box could indicate a successful or positive action.
 					</div>
 				</div>
 			
@@ -55,6 +55,7 @@ if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="user
 							<div class="panel-heading">
 								<h3 class="panel-title text-center"><strong><i class="fa fa-ticket"></i>&nbsp;&nbsp;&nbsp;Permisos de Ausencia</strong></h3>
 							</div>
+
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-sm-4 text-center">
@@ -297,13 +298,40 @@ if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="user
 			<div class="container">
 				<a href="../soporte.php?view=checador" class="btn btn-danger"><span><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></span> Regresar</a>
 			</div><br>
+
+			<?php
+			// Valida si se ha registrado con anterioridad un permiso
+			$buscar_permiso = $con->prepare("SELECT id_permiso FROM permisos WHERE registra_data = '$jefe' ORDER BY id_permiso DESC LIMIT 1");
+			$buscar_permiso->setFetchMode(PDO::FETCH_OBJ);
+			$buscar_permiso->execute();
+
+			$mostrar_permiso = $buscar_permiso->fetchAll();
+
+			if ($buscar_permiso -> rowCount() > 0) {
+				foreach ($mostrar_permiso as $permiso) {
+					$folio = $permiso -> id_permiso;
+					echo '
+					<div class="alert alert-success alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+					<h4 class="text-center"><strong>PERMISO REGISTRADO</strong></h4>
+					<p class="text-center">
+					Imprimir el último permiso que se registró en el sistema.
+					</p><br>
+					<center><a href="../checador/formatos/permiso_pdf.php?'.$folio.'" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> IMPRIMIR</a></center>
+					</div>
+					';
+				}
+			} else {
+				echo '<script>console.log("No hay registros en el sistema")</script>';
+			}
+			?>
 			
 			<div class="container">
 				<div class="row well">
 					<div class="col-sm-2">
 						<img src="../img/permiso2.png" class="img-responsive permiso-top">
 					</div>
-			
+		
 					<div class="col-sm-9 lead">
 						<h3 class="text-success">¿Cómo enviar un permiso?</h3>
 						<p>Para registrar un permiso, deberás llenar todos los campos del siguiente formulario.</p>
