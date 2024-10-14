@@ -369,7 +369,7 @@ if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="user
 													<label class="col-sm-2 control-label">Fecha Creación Permiso</label>
 													<div class='col-sm-10'>
 														<div class="input-group">
-															<input class="form-control" type="text" name="fecha_permiso" readonly value="<?php echo date("d/m/Y");?>" placeholder="Ejemplo: 02/10/2024">
+															<input class="form-control" type="text" name="fecha_permiso" readonly value="<?php echo date("Y-m-d");?>" placeholder="Ejemplo: 02/10/2024">
 															<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 														</div>
 													</div>
