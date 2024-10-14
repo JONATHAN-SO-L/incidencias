@@ -6,7 +6,7 @@ if ($_SESSION['nombre']!="" && $_SESSION['tipo']=="user") {
             require '../../config.php';
     
             $registra_permiso = $_SESSION['nombre_completo'];
-            $registra_data = $_SESSION['nombre'];
+            $registra_data = $_SESSION['nombre_completo'];
     
             $hora_permiso = $_POST['hora_permiso'];
             $fecha_permiso = $_POST['fecha_permiso'];
