@@ -82,19 +82,19 @@ display:none;
 						
 
             </div>
-            <div class="col-sm-4 text-center hidden-xs" style=" margin-left: 100px;">
+            <div class="col-sm-4 text-center" style=" margin-left: 100px;">
       <center><a href="./soporte.php?view=checador1"><img src="img/entrada1.png" class="img-responsive" alt="Image"></center>
     </div>
     
-    <div class="col-sm-4 text-center hidden-xs" style=" margin-left: 60px;"> 
+    <div class="col-sm-4 text-center" style=" margin-left: 60px;"> 
       <center><a href="soporte.php?view=checador2"><img src="img/salida1.png" class="img-responsive" alt="Image"/></center>
     </div>
 
-    <div class="col-sm-4 text-center hidden-xs" style=" margin-left: 100px;"> 
+    <div class="col-sm-4 text-center" style=" margin-left: 100px;"> 
       <center><a href="./user/permisos.php"><img src="img/permisos.jpg" class="img-responsive" alt="permisos"/></center>
     </div>
              
-    <div class="col-sm-4 text-center hidden-xs" style=" margin-left: 60px;"> 
+    <div class="col-sm-4 text-center" style=" margin-left: 60px;"> 
       <center><a href="./soporte.php?view=Ccomida"><img src="img/comida.png" class="img-responsive" alt="Image"/></center>
     </div>
     
@@ -103,7 +103,7 @@ display:none;
           </form>
         </div>
       </div>
-    <div class="col-sm-4 text-center hidden-xs">
+    <div class="col-sm-4 text-center">
       <img src="img/horarios.png" class="img-responsive" alt="Image">
       <h2 class="text-primary">¡Gracias por Checar!</h2>
     </div>
