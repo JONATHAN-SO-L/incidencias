@@ -193,7 +193,7 @@ $pdf->SetFont("Arial","",10);
 if ($hora_salida == "") {
     $pdf->Cell(30,5,'N/A',1,0,'C');
 } else {
-    $pdf->Cell(30,5,$hora_regreso,1,0,'C');
+    $pdf->Cell(30,5,$hora_salida,1,0,'C');
 }
 
 $pdf->SetXY(135,70);
@@ -381,7 +381,7 @@ switch ($motivo_ausencia) {
     $pdf->Cell(50,5,'Paternidad',0,0,'L');
 
     $pdf->SetXY(110,91);
-    $pdf->Cell(3,3,'',1,0,'C');
+    $pdf->Cell(3,3,'X',1,0,'C');
     $pdf->SetXY(113,90.5);
     $pdf->Cell(50,5,'Personal',0,0,'L');
 
@@ -425,7 +425,7 @@ switch ($motivo_ausencia) {
     $pdf->Cell(50,5,'Paternidad',0,0,'L');
 
     $pdf->SetXY(110,91);
-    $pdf->Cell(3,3,'',1,0,'C');
+    $pdf->Cell(3,3,'X',1,0,'C');
     $pdf->SetXY(113,90.5);
     $pdf->Cell(50,5,'Personal',0,0,'L');
 
@@ -469,7 +469,7 @@ switch ($motivo_ausencia) {
     $pdf->Cell(50,5,'Paternidad',0,0,'L');
 
     $pdf->SetXY(110,91);
-    $pdf->Cell(3,3,'',1,0,'C');
+    $pdf->Cell(3,3,'X',1,0,'C');
     $pdf->SetXY(113,90.5);
     $pdf->Cell(50,5,'Personal',0,0,'L');
 
@@ -513,7 +513,7 @@ switch ($motivo_ausencia) {
     $pdf->Cell(50,5,'Paternidad',0,0,'L');
 
     $pdf->SetXY(110,91);
-    $pdf->Cell(3,3,'',1,0,'C');
+    $pdf->Cell(3,3,'X',1,0,'C');
     $pdf->SetXY(113,90.5);
     $pdf->Cell(50,5,'Personal',0,0,'L');
 
@@ -901,6 +901,7 @@ switch ($goce_sueldo) {
 /*********************
 Observaciones
 *********************/
+$observaciones = substr($observaciones, 0, 98);
 $pdf->SetXY(15,100);
 $pdf->Cell(30,5,utf8_decode('Observaciones:'),1,0,'L');
 $pdf->SetFont("Arial","",8);
@@ -1827,4 +1828,4 @@ $pdf->SetXY(137,244);
 $pdf->Cell (63,15,'',1,0,'C');
 
 $pdf->Ln();
-$pdf->output('I','Solicitud de Ausentismo # para ___ con fecha de creación ___',true);
+$pdf->output('I','Solicitud de Ausentismo #'.$folio.' para '.$nombre_colaborador.' con fecha de creación '.$fecha_creacion.'',true);

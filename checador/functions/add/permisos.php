@@ -119,7 +119,7 @@ if ($_SESSION['nombre']!="" && $_SESSION['tipo']=="user") {
                         $colaborador, $puesto, $departamento, $area,
                         $sede, $jefe_gerente, $motivo_ausencia, $goce_sueldo,
                         $fecha_ausencia, $dias_solicitados, $hora_salida, $hora_regreso,
-                        $fecha_ausencia, $observaciones_permiso, $evidencia_consulta, $ip,
+                        $fecha_regreso, $observaciones_permiso, $evidencia_consulta, $ip,
                         $registra_data]);
     
                         if ($val_save_per_w_evidence) {
@@ -154,7 +154,7 @@ if ($_SESSION['nombre']!="" && $_SESSION['tipo']=="user") {
                 $colaborador, $puesto, $departamento, $area,
                 $sede, $jefe_gerente, $motivo_ausencia, $goce_sueldo,
                 $fecha_ausencia, $dias_solicitados, $hora_salida, $hora_regreso,
-                $fecha_ausencia, $observaciones_permiso, $ip, $registra_data]);
+                $fecha_regreso, $observaciones_permiso, $ip, $registra_data]);
     
                 if ($val_save_permission) {
                 echo '<script>alert("¡Se registró con éxito el permiso de ausentismo!")</script>';
