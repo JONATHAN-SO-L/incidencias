@@ -41,6 +41,7 @@ if ($buscar_info -> rowCount() > 0) {
 class PDF extends FPDF
 {
     function Header(){
+    global $folio;
     // Inicio de Encabezado
     $this->SetFillColor(2, 2, 2);
     $this->SetTextColor(255,255,255);
@@ -49,6 +50,11 @@ class PDF extends FPDF
     $this->Cell (185,15,utf8_decode('SOLICITUD DE AUSENTISMO'),0,1,'C',true);
     // Inicio de formulario
     $this->SetFont("Arial","b",10);
+    // Folio de Permiso
+    $this->SetXY(163,20);
+    $this->Cell(15,5,utf8_decode('Folio:'),0,1,'C',true);
+    $this->SetXY(175,20);
+    $this->Cell(25,5,$folio,0,1,'C',true);
     $this->Cell (185,5,utf8_decode('Datos del Personal:'),0,1,'C',true);
     // Logo
     $this->Image('../../img/veco.png',20,13,20);
@@ -953,6 +959,11 @@ $pdf->SetTextColor(255,255,255);
 $pdf->SetFont("Arial","b",18);
 $pdf->Cell (185,15,utf8_decode('SOLICITUD DE AUSENTISMO'),0,1,'C',true);
 $pdf->SetFont("Arial","b",10);
+// Folio de Permiso
+$pdf->SetXY(163,150);
+$pdf->Cell(15,5,utf8_decode('Folio:'),0,1,'C',true);
+$pdf->SetXY(175,150);
+$pdf->Cell(25,5,$folio,0,1,'C',true);
 $pdf->Cell (185,5,utf8_decode('Datos del Personal:'),0,1,'C',true);
 
 /********************
