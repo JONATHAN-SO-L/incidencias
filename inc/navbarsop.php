@@ -102,7 +102,10 @@ a.navbar-brand {
                 <a href="./soporte.php?view=checadas"><i class="fa fa-check-circle-o" aria-hidden="true"></i>&nbsp;&nbsp;Checadas</a>
                 </li>
                 <li>
-                    <a href="./user/permisos_lista.php"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;Permisos de Ausentismo</a>
+                    <a href="./user/permisos_lista.php"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;Listado de Permisos de Ausentismo</a>
+                </li>
+                <li>
+                <a href="./user/permisos_rh.php"><i class="fa fa-clock-o"></i>&nbsp;&nbsp;Permisos</a>
                 </li>
                 <?php endif; ?>
                 
