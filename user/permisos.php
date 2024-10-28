@@ -18,6 +18,7 @@ if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="user
 			?>
 			
 			<meta charset="UTF-8"><br><br><br>
+			<link rel="stylesheet" type="text/css" href="../checador/css/responsive_permiso.css">
 			
 			<style>
 				.permiso-top {
@@ -144,7 +145,7 @@ if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="user
 												<input type="hidden" class="form-control" value="<?php echo $_SESSION['nombre_completo']; ?>" name="jefe_gerente" placeholder="Ejemplo: Jorge Martinez">
 			
 												<input type="hidden" class="form-control" value="<?php echo $_SESSION['ubi']; ?>" name="sede" placeholder="Ejemplo: Oficinas">
-			
+
 												<div class="form-group">
 													<label  class="col-sm-2 control-label">Área</label>
 													<div class="col-sm-10">
@@ -163,7 +164,7 @@ if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="user
 																<option value="0"> - Selecciona el permiso - </option>
 																<?php
 																// Buscar los tipos de permisos/motivos de ausencia en la base de datos correspondiente
-																$m_ausencia = $con->prepare("SELECT motivo_ausencia FROM motivo_ausencia");
+																$m_ausencia = $con->prepare("SELECT motivo_ausencia FROM motivo_ausencia ORDER BY motivo_ausencia ASC");
 																$m_ausencia->setFetchMode(PDO::FETCH_OBJ);
 																$m_ausencia->execute();
 			
@@ -282,15 +283,78 @@ if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="user
 			</div>
 			</div>
 			
-			<div class="class_ticket" id="class_ticket" style="display: none;">
-			<img class="img-responsive animated tada" src="../img/class_ticket.gif" style="position: absolute; left: 10%; float: right; top: 60%; width: 30%; border: 5px solid; border-radius: 10px;">
-			</div>
-			
-			<script type="text/javascript">
-				function showImg(){
-					$("#class_ticket").css("display","block");
-				}
-			</script>
+<!-----------------------------------------------------------------
+IMÁGENES POP-UP DE MOTIVOS DE AUSENCIA
+------------------------------------------------------------------>
+<!-- retardo_justificado -->
+<div class="retardo_justificado" id="retardo_justificado" name="retardo_justificado" style="display: none">
+<img class="img-fluid animated tada" id="retardo_justificado_img" src="../img/retardo_justificado.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- retardo_injustificado -->
+<div class="retardo_injustificado" id="retardo_injustificado" name="retardo_injustificado" style="display: none">
+<img class="img-fluid animated tada" src="../img/retardo_injustificado.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- paternidad -->
+<div class="paternidad" id="paternidad" name="paternidad" style="display: none">
+<img class="img-fluid animated tada" src="../img/paternidad.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- tiempo_por_tiempo -->
+<div class="tiempo_por_tiempo" id="tiempo_por_tiempo" name="tiempo_por_tiempo" style="display: none">
+<img class="img-fluid animated tada" src="../img/tiempo_por_tiempo.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- trabajo_casa -->
+<div class="trabajo_casa" id="trabajo_casa" name="trabajo_casa" style="display: none">
+<img class="img-fluid animated tada" src="../img/trabajo_casa.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- falta_justificada -->
+<div class="falta_justificada" id="falta_justificada" name="falta_justificada" style="display: none">
+<img class="img-fluid animated tada" src="../img/falta_justificada.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- falta_injustificada -->
+<div class="falta_injustificada" id="falta_injustificada" name="falta_injustificada" style="display: none">
+<img class="img-fluid animated tada" src="../img/falta_injustificada.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- salud -->
+<div class="salud" id="salud" name="salud" style="display: none">
+<img class="img-fluid animated tada" src="../img/salud.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- enfermedad_general -->
+<div class="enfermedad_general" id="enfermedad_general" name="enfermedad_general" style="display: none">
+<img class="img-fluid animated tada" src="../img/enfermedad_general.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- riesgo_trabajo -->
+<div class="riesgo_trabajo" id="riesgo_trabajo" name="riesgo_trabajo" style="display: none">
+<img class="img-fluid animated tada" src="../img/riesgo_trabajo.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- maternidad -->
+<div class="maternidad" id="maternidad" name="maternidad" style="display: none">
+<img class="img-fluid animated tada" src="../img/maternidad.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- vacaciones -->
+<div class="vacaciones" id="vacaciones" name="vacaciones" style="display: none">
+<img class="img-fluid animated tada" src="../img/vacaciones.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- labor_campo -->
+<div class="labor_campo" id="labor_campo" name="labor_campo" style="display: none">
+<img class="img-fluid animated tada" src="../img/labor_campo.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- incapacidad_interna -->
+<div class="incapacidad_interna" id="incapacidad_interna" name="incapacidad_interna" style="display: none">
+<img class="img-fluid animated tada" src="../img/incapacidad_interna.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
 			
 			<?php
 			break;
@@ -451,7 +515,7 @@ if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="user
 																<option value="0"> - Selecciona el permiso - </option>
 																<?php
 																// Buscar los tipos de permisos/motivos de ausencia en la base de datos correspondiente
-																$m_ausencia = $con->prepare("SELECT motivo_ausencia FROM motivo_ausencia");
+																$m_ausencia = $con->prepare("SELECT motivo_ausencia FROM motivo_ausencia ORDER BY motivo_ausencia ASC");
 																$m_ausencia->setFetchMode(PDO::FETCH_OBJ);
 																$m_ausencia->execute();
 			
@@ -569,16 +633,79 @@ if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="user
 			</div>
 			</div>
 			</div>
-			
-			<div class="class_ticket" id="class_ticket" style="display: none;">
-			<img class="img-responsive animated tada" src="../img/class_ticket.gif" style="position: absolute; left: 10%; float: right; top: 60%; width: 30%; border: 5px solid; border-radius: 10px;">
-			</div>
-			
-			<script type="text/javascript">
-				function showImg(){
-					$("#class_ticket").css("display","block");
-				}
-			</script>
+
+<!-----------------------------------------------------------------
+IMÁGENES POP-UP DE MOTIVOS DE AUSENCIA
+------------------------------------------------------------------>
+<!-- retardo_justificado -->
+<div class="retardo_justificado" id="retardo_justificado" name="retardo_justificado" style="display: none">
+<img class="img-fluid animated tada" src="../img/retardo_justificado.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- retardo_injustificado -->
+<div class="retardo_injustificado" id="retardo_injustificado" name="retardo_injustificado" style="display: none">
+<img class="img-fluid animated tada" src="../img/retardo_injustificado.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- paternidad -->
+<div class="paternidad" id="paternidad" name="paternidad" style="display: none">
+<img class="img-fluid animated tada" src="../img/paternidad.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- tiempo_por_tiempo -->
+<div class="tiempo_por_tiempo" id="tiempo_por_tiempo" name="tiempo_por_tiempo" style="display: none">
+<img class="img-fluid animated tada" src="../img/tiempo_por_tiempo.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- trabajo_casa -->
+<div class="trabajo_casa" id="trabajo_casa" name="trabajo_casa" style="display: none">
+<img class="img-fluid animated tada" src="../img/trabajo_casa.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- falta_justificada -->
+<div class="falta_justificada" id="falta_justificada" name="falta_justificada" style="display: none">
+<img class="img-fluid animated tada" src="../img/falta_justificada.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- falta_injustificada -->
+<div class="falta_injustificada" id="falta_injustificada" name="falta_injustificada" style="display: none">
+<img class="img-fluid animated tada" src="../img/falta_injustificada.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- salud -->
+<div class="salud" id="salud" name="salud" style="display: none">
+<img class="img-fluid animated tada" src="../img/salud.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- enfermedad_general -->
+<div class="enfermedad_general" id="enfermedad_general" name="enfermedad_general" style="display: none">
+<img class="img-fluid animated tada" src="../img/enfermedad_general.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- riesgo_trabajo -->
+<div class="riesgo_trabajo" id="riesgo_trabajo" name="riesgo_trabajo" style="display: none">
+<img class="img-fluid animated tada" src="../img/riesgo_trabajo.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- maternidad -->
+<div class="maternidad" id="maternidad" name="maternidad" style="display: none">
+<img class="img-fluid animated tada" src="../img/maternidad.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- vacaciones -->
+<div class="vacaciones" id="vacaciones" name="vacaciones" style="display: none">
+<img class="img-fluid animated tada" src="../img/vacaciones.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- labor_campo -->
+<div class="labor_campo" id="labor_campo" name="labor_campo" style="display: none">
+<img class="img-fluid animated tada" src="../img/labor_campo.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
+
+<!-- incapacidad_interna -->
+<div class="incapacidad_interna" id="incapacidad_interna" name="incapacidad_interna" style="display: none">
+<img class="img-fluid animated tada" src="../img/incapacidad_interna.png" style="position: absolute; left: 0.5%; float: right; top: 50%; width: 38%; border: 5px solid; border-radius: 10px;">
+</div>
 			
 			<?php
 			break;
