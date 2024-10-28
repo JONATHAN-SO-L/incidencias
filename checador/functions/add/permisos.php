@@ -74,6 +74,10 @@ if ($_SESSION['nombre']!="" && $_SESSION['tipo']=="user") {
                 case 'Incapacidades: Maternidad':
                     $goce_sueldo = 'No';
                 break;
+
+                case 'Incapacidades: Interna':
+                    $goce_sueldo = 'Si';
+                break;
                 
                 default:
                 $goce_sueldo = $_POST['goce_sueldo'];
