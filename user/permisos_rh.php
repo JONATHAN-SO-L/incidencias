@@ -3,7 +3,7 @@ session_start();
 
 include "../inc/navbarchk.php";
 
-if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH"){
+if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH" || $_SESSION['tipo']=="admin"){
     date_default_timezone_set('America/Mexico_City');
     header('Content-Type: text/html; charset=UTF-8');
 

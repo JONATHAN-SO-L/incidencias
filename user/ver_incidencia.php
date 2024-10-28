@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH"){
+if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH" || $_SESSION['tipo']=="admin"){
   header('Content-Type: text/html; charset=UTF-8');
   require '../checador/config.php';
   

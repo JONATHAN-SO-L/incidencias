@@ -1,6 +1,6 @@
 <?php
 session_start();
-if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH"){ ?>
+if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH" || $_SESSION['tipo']=="admin"){ ?>
 
 <style>
 .page-header{
@@ -91,6 +91,7 @@ footer {
                                             <tr>
                                                 <td class='text-center'>
                                                     <a href='ver_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-primary' title='Ver Incidencia'><i class='fa fa-eye' aria-hidden='true'></i> Ver Detalles</a>
+                                                    <a href='../checador/formatos/permiso_pdf.php?".$permiso->id_permiso."' class='btn btn-sm btn-success' title='Imprimir' target='_blank'><i class='fa fa-eye' aria-hidden='true'></i> Imprimir</a>
                                                 </td>"
                                         ?>
                                                 <td class="text-center"><?php echo $permiso->id_permiso; ?></td>
