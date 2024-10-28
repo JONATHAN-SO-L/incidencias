@@ -91,6 +91,12 @@ a.navbar-brand {
             <li>
             <a href="admin.php?view=checador"><i class="fa fa-clock-o"></i>&nbsp;&nbsp;Checador</a>
             </li>
+            <li>
+            <a href="./user/permisos_lista.php"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;Listado de Permisos de Ausentismo</a>
+            </li>
+            <li>
+            <a href="./user/permisos_rh.php"><i class="fa fa-clock-o"></i>&nbsp;&nbsp;Permisos</a>
+            </li>
             <?php endif; ?>
             
             <!-- RH -->
