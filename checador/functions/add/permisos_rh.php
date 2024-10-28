@@ -2,7 +2,7 @@
 
 session_start();
 
-if ($_SESSION['nombre']!="" && $_SESSION['tipo']=="RH") { ?>
+if ($_SESSION['nombre']!="" && $_SESSION['tipo']=="RH" || $_SESSION['tipo']=="admin") { ?>
 
     <img src="../../../img/spin_carga.gif" alt="Pantalla de carga" style="heigth: 100%; width: 100%;">
 
