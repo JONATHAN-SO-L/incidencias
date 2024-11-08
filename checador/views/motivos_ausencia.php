@@ -2,8 +2,7 @@
 session_start();
 if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH" || $_SESSION['tipo']=="admin"){
     
-    require '../../inc/navbarchk.php';
-    require '../functions/links2.php';
+    require '../../inc/navbarchkad.php';
 ?>
 
 <style>
@@ -18,11 +17,11 @@ footer {
     display: none;
 }
 </style>
-<div class="container">
+<div class="container"><br><br><br>
           <div class="row">
             <div class="col-sm-12">
               <div class="page-header2">
-                <h1 class="animated lightSpeedIn">Motivos de Ausencia</h1>
+                <h1 class="animated lightSpeedIn"><strong>Motivos de Ausencia</strong></h1>
                 <span class="label label-danger">Desarrollo Organizacional</span>
                 <p class="pull-right text-primary">
                   <strong>
@@ -39,7 +38,7 @@ footer {
                 <img src="../../img/incidencias.png" alt="Image" class="img-responsive animated flipInY" style="border-radius: 100%; border: solid;">
             </div>
             <div class="col-sm-10"><br>
-              <p class="lead text-info">Bienvenido <strong><?php echo $_SESSION['nombre_completo'];?></strong>, en esta página se muestran todas los motivos de ausencia registrados.</p>
+              <p class="lead text-info">Bienvenido(a) <strong><?php echo $_SESSION['nombre_completo'];?></strong>, en esta página se muestran todas los motivos de ausencia registrados.</p>
             </div>
             <div clas="pull-left">
                 <p class="pull-right text-primary">
@@ -82,9 +81,10 @@ footer {
                                             <tr>
                                                 <td class='text-center'>
                                                     <a href='#?".$descripcion->id_motivo."' class='btn btn-sm btn-warning' title='Modificar'><i class='fa fa-eye' aria-hidden='true'></i> Modificar</a>
+                                                    <a href='#?".$descripcion->id_motivo."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a>
                                                 </td>"
                                         ?>
-                                                <td class="text-center"><?php echo $descripcion->id_motivo; ?></td>
+                                                <td class="text-center"><strong><?php echo $descripcion->id_motivo; ?></strong></td>
                                                 <td class="text-center"><?php echo $descripcion->motivo_ausencia; ?></td>
                                             </tr>
                                         </tbody>
@@ -104,6 +104,7 @@ footer {
                 </div>
             </div>
 <?php
+include "../../inc/footer_rh.php";
 }else{
 ?>
         <div class="container">

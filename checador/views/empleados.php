@@ -2,8 +2,7 @@
 session_start();
 if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH" || $_SESSION['tipo']=="admin"){
     
-    require '../../inc/navbarchk.php';
-    require '../functions/links2.php';
+    require '../../inc/navbarchkad.php';
 ?>
 
 <style>
@@ -18,11 +17,11 @@ footer {
     display: none;
 }
 </style>
-<div class="container">
+<div class="container"><br><br><br>
           <div class="row">
             <div class="col-sm-12">
               <div class="page-header2">
-                <h1 class="animated lightSpeedIn">Empleados de VECO</h1>
+                <h1 class="animated lightSpeedIn"><strong>Empleados de VECO</strong></h1>
                 <span class="label label-danger">Desarrollo Organizacional</span>
                 <p class="pull-right text-primary">
                   <strong>
@@ -39,7 +38,7 @@ footer {
                 <img src="../../img/empleados.png" alt="Image" class="img-responsive animated flipInY" style="border-radius: 100%; border: solid;">
             </div>
             <div class="col-sm-10"><br>
-              <p class="lead text-info">Bienvenido <strong><?php echo $_SESSION['nombre_completo'];?></strong>, en esta página se muestran todos los empleados registrados en el sistema.</p>
+              <p class="lead text-info">Bienvenido(a) <strong><?php echo $_SESSION['nombre_completo'];?></strong>, en esta página se muestran todos los empleados registrados en el sistema.</p>
             </div>
             <div clas="pull-left">
                 <p class="pull-right text-primary">
@@ -88,9 +87,10 @@ footer {
                                             <tr>
                                                 <td class='text-center'>
                                                     <a href='#?".$empleado->id_empleado."' class='btn btn-sm btn-warning' title='Modificar'><i class='fa fa-eye' aria-hidden='true'></i> Modificar</a>
+                                                    <a href='#?".$empleado->id_empleado."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a>
                                                 </td>"
                                         ?>
-                                                <td class="text-center"><?php echo $empleado->id_empleado; ?></td>
+                                                <td class="text-center"><strong><?php echo $empleado->id_empleado; ?></strong></td>
                                                 <td class="text-center"><?php echo $empleado->nombre_colaborador; ?></td>
                                                 <td class="text-center"><?php echo $empleado->no_empleado; ?></td>
                                                 <td class="text-center"><?php echo $empleado->area; ?></td>
@@ -116,6 +116,7 @@ footer {
                 </div>
             </div>
 <?php
+include "../../inc/footer_rh.php";
 }else{
 ?>
         <div class="container">
