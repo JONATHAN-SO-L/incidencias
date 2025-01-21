@@ -333,6 +333,7 @@ IMÁGENES POP-UP DE MOTIVOS DE AUSENCIA
 </div>
 
 <?php
+include "../inc/footer_permiso.php";
 }else{
 	?>
     /*******************************
@@ -354,6 +355,7 @@ IMÁGENES POP-UP DE MOTIVOS DE AUSENCIA
     <div class="col-sm-1">&nbsp;</div>
     </div>
     </div>
+    <meta http-equiv="refresh" content="0; url=soporte.php?view=soporte"/>
 	<?php
 }
 ?>
@@ -365,6 +367,3 @@ IMÁGENES POP-UP DE MOTIVOS DE AUSENCIA
 </script>
 
 <script type="text/javascript" src="../checador/functions/search/functions.js"></script>
-<!--script type="text/javascript" src="../checador/functions/search/buscar_no_empleado.js"></script>
-<script type="text/javascript" src="../checador/functions/search/buscar_puesto.js"></script>
-<script type="text/javascript" src="../checador/functions/search/buscar_departamento.js"></script-->

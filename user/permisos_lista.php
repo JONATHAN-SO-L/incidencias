@@ -19,8 +19,9 @@ footer {
           <div class="row">
             <div class="col-sm-12">
               <div class="page-header2">
-                <h1 class="animated lightSpeedIn">Permisos de Ausentismo</h1>
-                <span class="label label-danger">Desarrollo Organizacional</span>
+                <h1 class="animated lightSpeedIn"><strong>Permisos de Ausentismo</strong></h1>
+                <span class="label label-danger"><?php echo $_SESSION['ar'];?></span><br><br>
+                <a href="../checador/views/advanced_conf.php" class="btn-sm btn btn-danger pull-left"><i class="fa fa-arrow-circle-left"></i> Salir al menú</a><br>
                 <p class="pull-right text-primary">
                   <strong>
                   <?php include "../inc/timezone.php"; ?>
@@ -49,19 +50,38 @@ footer {
                 <label class="pull-right">Fecha de inicio:</label>
             </form>
             </div>
+
+            <div class="col-sm-5"><br>
+                <form method="POST">
+                    <label>Buscar Incidencia: </label>
+                    <input class="pull-right form-control" type="search" name="buscar_incidencia" id="buscar_incidencia" placeholder="Ingresa el nombre del colaborador, clave o folio del registro">
+                    <input type="submit" class="btn btn-success btn-sm pull-right" value="Buscar" name="buscar_in" id="buscar_in">
+                </form>
+            </div>
+
         </div>
-        </div>
-        
-        <br><br>
-        
-        <div class="container">
+        </div><br>
+<?php
+/************************
+Búsqueda de incidencia
+************************/
+if (isset($_POST['buscar_in'])) {
+    require '../checador/config.php';
+
+    //La incidencia puede ser el folio, la clave del colaborador o el nombre del mismo
+    $palabra_clave = $_POST['buscar_incidencia']; ?>
+
+    <div class="container">
                 <br>
                 <div class="row">
                     <div class="col-md-12">
+                            <label>Resultados de: <span class="badge bg-success"><?php echo $palabra_clave; ?></span></label>
+                            <a href="permisos_lista.php" class="btn-sm btn btn-danger pull-right"><i class="fa fa-arrow-circle-left"></i> Regresar al inicio</a><br><br>
                             <?php
-                            require '../checador/config.php';
-
-                            $buscar_permisos = $con->prepare("SELECT * FROM permisos ORDER BY id_permiso DESC");
+                            /*********************
+                            Resultados de busqueda
+                            *********************/
+                            $buscar_permisos = $con->prepare("SELECT * FROM permisos WHERE id_permiso LIKE '%$palabra_clave%' OR no_empleado LIKE '%$palabra_clave%' OR nombre_colaborador LIKE '%$palabra_clave%' ORDER BY id_permiso DESC");
                             $buscar_permisos->setFetchMode(PDO::FETCH_OBJ);
                             $buscar_permisos->execute();
 
@@ -92,9 +112,11 @@ footer {
                                                 <td class='text-center'>
                                                     <a href='ver_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-primary' title='Ver Incidencia'><i class='fa fa-eye' aria-hidden='true'></i> Ver Detalles</a>
                                                     <a href='../checador/formatos/permiso_pdf.php?".$permiso->id_permiso."' class='btn btn-sm btn-success' title='Imprimir' target='_blank'><i class='fa fa-eye' aria-hidden='true'></i> Imprimir</a>
+                                                    <a href='../checador/views/mod_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-warning' title='Modificar'><i class='fa fa-eye' aria-hidden='true'></i> Modificar</a>
+                                                    <a href='../checador/views/drop_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a>
                                                 </td>"
                                         ?>
-                                                <td class="text-center"><?php echo $permiso->id_permiso; ?></td>
+                                                <td class="text-center"><strong><?php echo $permiso->id_permiso; ?></strong></td>
                                                 <td class="text-center"><?php echo $permiso->no_empleado; ?></td>
                                                 <td class="text-center"><?php echo $permiso->nombre_colaborador; ?></td>
                                                 <td class="text-center"><?php echo $permiso->area; ?></td>
@@ -121,7 +143,78 @@ footer {
                     </div>
                 </div>
             </div>
-<?php
+
+<?php } else {
+    require '../checador/config.php';
+
+    $buscar_permisos = $con->prepare("SELECT * FROM permisos ORDER BY id_permiso DESC");
+    $buscar_permisos->setFetchMode(PDO::FETCH_OBJ);
+    $buscar_permisos->execute();
+
+    $show_permisos = $buscar_permisos->fetchAll();
+
+    if ($buscar_permisos -> rowCount() > 0) { ?>
+    <div class="container"><br>
+                <div class="row">
+                    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                    <th class="text-center">Acción</th>
+                    <th class="text-center">Folio / ID</th>
+                    <th class="text-center">Clave de Colaborador</th>
+                    <th class="text-center">Nombre Completo</th>
+                    <th class="text-center">Área</th>
+                    <th class="text-center">Línea / Departamento</th>
+                    <th class="text-center">Puesto</th>
+                    <th class="text-center">Jefe Inmediato </th>
+                    <th class="text-center">Incidencia</th>
+                    <th class="text-center">Fecha de Ausencia</th>
+                    <th class="text-center">Días Solicitados</th>
+                    </tr>
+                </thead>
+                <?php
+                foreach ($show_permisos as $permiso) {
+                    echo "<tbody>
+                    <tr>
+                        <td class='text-center'>
+                            <a href='ver_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-primary' title='Ver Incidencia'><i class='fa fa-eye' aria-hidden='true'></i> Ver Detalles</a>
+                            <a href='../checador/formatos/permiso_pdf.php?".$permiso->id_permiso."' class='btn btn-sm btn-success' title='Imprimir' target='_blank'><i class='fa fa-eye' aria-hidden='true'></i> Imprimir</a>
+                            <a href='../checador/views/mod_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-warning' title='Modificar'><i class='fa fa-eye' aria-hidden='true'></i> Modificar</a>
+                            <a href='../checador/views/drop_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a>
+                        </td>"
+                ?>
+                        <td class="text-center"><strong><?php echo $permiso->id_permiso; ?></strong></td>
+                        <td class="text-center"><?php echo $permiso->no_empleado; ?></td>
+                        <td class="text-center"><?php echo $permiso->nombre_colaborador; ?></td>
+                        <td class="text-center"><?php echo $permiso->area; ?></td>
+                        <td class="text-center"><?php echo $permiso->linea; ?></td>
+                        <td class="text-center"><?php echo $permiso->puesto; ?></td>
+                        <td class="text-center"><?php echo $permiso->gerente_jefe; ?></td>
+                        <td class="text-center"><strong><?php echo $permiso->motivo_ausencia; ?></strong></td>
+                        <td class="text-center"><strong><?php echo $permiso->fecha_ausencia; ?></strong></td>
+                        <td class="text-center"><?php echo $permiso->dias_solicitados; ?></td>
+                    </tr>
+                </tbody>
+                <?php }
+                ?>
+            </table>
+        </div>
+    <?php } else {
+        echo '<h2 class="text-center">No se encontraron permisos registrados en el sistema</h2>';
+    }
+    ?>
+<nav aria-label="Page navigation" class="text-center">
+    <ul class="pagination">
+    </ul>
+</nav>
+</div>
+</div>
+</div>
+
+<?php }
+include "../inc/footer_permiso.php";
 }else{
 ?>
         <div class="container">
@@ -138,6 +231,7 @@ footer {
                 <div class="col-sm-1">&nbsp;</div>
             </div>
         </div>
+        <meta http-equiv="refresh" content="0; url=soporte.php?view=soporte"/>
 <?php
 }
 ?>
