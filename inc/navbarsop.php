@@ -97,6 +97,9 @@ a.navbar-brand {
             <li>
             <a href="./user/permisos_rh.php"><i class="fa fa-clock-o"></i>&nbsp;&nbsp;Permisos</a>
             </li>
+            <li>
+            <a href="./checador/views/advanced_conf.php"><i class="fa fa-cog"></i>&nbsp;&nbsp;Configuracion Avanzada de Permisos</a>
+            </li>
             <?php endif; ?>
             
             <!-- RH -->
