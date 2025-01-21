@@ -345,11 +345,7 @@ if ($_SESSION['nombre']!="" && $_SESSION['tipo']=="RH" || $_SESSION['tipo']=="ad
         }
 
 } else {
-
-    echo '<script>alert("Ocurrió un error al intentar guardar los datos, contacta con el Soporte Técnico")</script>';
-
-    echo '<meta http-equiv="refresh" content="0; url=../../../user/permisos_rh.php">';
-
+    echo '<meta http-equiv="refresh" content="0; url=soporte.php?view=soporte"/>';
 }
 
 
