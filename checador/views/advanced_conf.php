@@ -53,6 +53,7 @@ if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH" 
                 <a href="puestos.php" class="btn-md btn btn-warning">Puestos</a>
                 <a href="empleados.php" class="btn-md btn btn-danger">Empleados</a>
                 <a href="motivos_ausencia.php" class="btn-md btn btn-primary">Motivos de Ausencia</a>
+                <!--a href="jefes_lista.php" class="btn-md btn btn-info">Jefes Inmediatos</a-->
                 </center>
             </div>
             </div>
@@ -85,6 +86,7 @@ include "../../inc/footer_rh.php";
     <div class="col-sm-1">&nbsp;</div>
     </div>
     </div>
+    <meta http-equiv="refresh" content="0; url=soporte.php?view=soporte"/>
 	<?php
 }
 ?>

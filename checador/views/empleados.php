@@ -22,7 +22,8 @@ footer {
             <div class="col-sm-12">
               <div class="page-header2">
                 <h1 class="animated lightSpeedIn"><strong>Empleados de VECO</strong></h1>
-                <span class="label label-danger">Desarrollo Organizacional</span>
+                <span class="label label-danger">Desarrollo Organizacional</span><br><br>
+                <a href="advanced_conf.php" class="btn-sm btn btn-danger pull-left"><i class="fa fa-arrow-circle-left"></i> Salir al menú</a><br>
                 <p class="pull-right text-primary">
                   <strong>
                  </strong>
@@ -37,9 +38,19 @@ footer {
             <div class="col-sm-2"><br>
                 <img src="../../img/empleados.png" alt="Image" class="img-responsive animated flipInY" style="border-radius: 100%; border: solid;">
             </div>
+
             <div class="col-sm-10"><br>
               <p class="lead text-info">Bienvenido(a) <strong><?php echo $_SESSION['nombre_completo'];?></strong>, en esta página se muestran todos los empleados registrados en el sistema.</p>
             </div>
+
+            <div class="col-sm-5"><br>
+                <form method="POST">
+                    <label>Buscar Empleado: </label>
+                    <input class="pull-right form-control" type="search" name="buscar_empleado" id="buscar_empleado" placeholder="Inserta el nombre completo, número clave del colaborador o área">
+                    <input type="submit" class="btn btn-success btn-sm pull-right" value="Buscar" name="buscar_employee" id="buscar_employee">
+                </form>
+            </div>
+
             <div clas="pull-left">
                 <p class="pull-right text-primary">
                   <strong>
@@ -51,21 +62,31 @@ footer {
         </div>
         
         <br><br>
-        
-        <div class="container">
+
+        <?php
+        if (isset($_POST['buscar_employee'])) {
+            require '../config.php';
+            $palabra_clave = $_POST['buscar_empleado']; ?>
+            <div class="container">
                 <br>
                 <div class="row">
                     <div class="col-md-12">
+                    <label>Resultados de: <span class="badge bg-success"><?php echo $palabra_clave; ?></span></label>
+                    <a href="empleados.php" class="btn-sm btn btn-danger pull-right"><i class="fa fa-arrow-circle-left"></i> Regresar al inicio</a><br>
                             <?php
-                            require '../config.php';
-
-                            $buscar_empleados = $con->prepare("SELECT * FROM empleados ORDER BY area ASC");
+                            $buscar_empleados = $con->prepare("SELECT * FROM empleados WHERE nombre_colaborador LIKE '%$palabra_clave%' OR no_empleado LIKE '%$palabra_clave%' OR area LIKE '%$palabra_clave%' ORDER BY id_empleado ASC");
                             $buscar_empleados->setFetchMode(PDO::FETCH_OBJ);
                             $buscar_empleados->execute();
 
                             $show_empleados = $buscar_empleados->fetchAll();
 
+                            // Contador de totales
+                            $total_empleados = $con->prepare("SELECT COUNT(*) FROM empleados WHERE nombre_colaborador LIKE '%$palabra_clave%' OR no_empleado LIKE '%$palabra_clave%' OR area LIKE '%$palabra_clave%'");
+                            $total_empleados->execute();
+                            $num_total_empleados = $total_empleados->fetchColumn();
+
                             if ($buscar_empleados -> rowCount() > 0) { ?>
+                            <label>Total: <span class="badge bg-success"><?php echo $num_total_empleados; ?></span></label><br><br>
                                 <div class="table-responsive">
                                     <table class="table table-hover table-striped table-bordered">
                                         <thead>
@@ -86,8 +107,8 @@ footer {
                                             echo "<tbody>
                                             <tr>
                                                 <td class='text-center'>
-                                                    <a href='#?".$empleado->id_empleado."' class='btn btn-sm btn-warning' title='Modificar'><i class='fa fa-eye' aria-hidden='true'></i> Modificar</a>
-                                                    <a href='#?".$empleado->id_empleado."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a>
+                                                    <a href='mod_empleado.php?".$empleado->id_empleado."' class='btn btn-sm btn-warning' title='Modificar'><i class='fa fa-eye' aria-hidden='true'></i> Modificar</a>
+                                                    <a href='drop_empleado.php?".$empleado->id_empleado."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a>
                                                 </td>"
                                         ?>
                                                 <td class="text-center"><strong><?php echo $empleado->id_empleado; ?></strong></td>
@@ -115,7 +136,78 @@ footer {
                     </div>
                 </div>
             </div>
-<?php
+        <?php } else { ?>
+            <div class="container">
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                            <?php
+                            require '../config.php';
+
+                            $buscar_empleados = $con->prepare("SELECT * FROM empleados ORDER BY area ASC");
+                            $buscar_empleados->setFetchMode(PDO::FETCH_OBJ);
+                            $buscar_empleados->execute();
+
+                            $show_empleados = $buscar_empleados->fetchAll();
+
+                            // Contador de totales
+                            $total_empleados = $con->prepare("SELECT COUNT(*) FROM empleados");
+                            $total_empleados->execute();
+                            $num_total_empleados = $total_empleados->fetchColumn();
+
+                            if ($buscar_empleados -> rowCount() > 0) { ?>
+                            <label>Total de Empleados: <span class="badge bg-success"><?php echo $num_total_empleados; ?></span></label>
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                            <th class="text-center">Acción</th>
+                                            <th class="text-center">Folio / ID</th>
+                                            <th class="text-center">Nombre del Colaborador</th>
+                                            <th class="text-center">Clave / No. Empleado</th>
+                                            <th class="text-center">Área</th>
+                                            <th class="text-center">Línea / Departamento</th>
+                                            <th class="text-center">Puesto</th>
+                                            <th class="text-center">Sede</th>
+                                            <th class="text-center">Jefe Inmediato</th>
+                                            </tr>
+                                        </thead>
+                                        <?php
+                                        foreach ($show_empleados as $empleado) {
+                                            echo "<tbody>
+                                            <tr>
+                                                <td class='text-center'>
+                                                    <a href='mod_empleado.php?".$empleado->id_empleado."' class='btn btn-sm btn-warning' title='Modificar'><i class='fa fa-eye' aria-hidden='true'></i> Modificar</a>
+                                                    <a href='drop_empleado.php?".$empleado->id_empleado."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a>
+                                                </td>"
+                                        ?>
+                                                <td class="text-center"><strong><?php echo $empleado->id_empleado; ?></strong></td>
+                                                <td class="text-center"><?php echo $empleado->nombre_colaborador; ?></td>
+                                                <td class="text-center"><?php echo $empleado->no_empleado; ?></td>
+                                                <td class="text-center"><?php echo $empleado->area; ?></td>
+                                                <td class="text-center"><?php echo $empleado->linea; ?></td>
+                                                <td class="text-center"><?php echo $empleado->puesto; ?></td>
+                                                <td class="text-center"><?php echo $empleado->sede; ?></td>
+                                                <td class="text-center"><?php echo $empleado->gerente_jefe; ?></td>
+                                            </tr>
+                                        </tbody>
+                                        <?php }
+                                        ?>
+                                    </table>
+                                </div>
+                            <?php } else {
+                                echo '<h2 class="text-center">No se encontraron empleados registrados en el sistema</h2>';
+                            }
+                            ?>
+                        <nav aria-label="Page navigation" class="text-center">
+                            <ul class="pagination">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        <?php }
+
 include "../../inc/footer_rh.php";
 }else{
 ?>
@@ -133,6 +225,7 @@ include "../../inc/footer_rh.php";
                 <div class="col-sm-1">&nbsp;</div>
             </div>
         </div>
+        <meta http-equiv="refresh" content="0; url=soporte.php?view=soporte"/>
 <?php
 }
 ?>
