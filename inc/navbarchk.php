@@ -27,7 +27,7 @@ a.navbar-brand {
 <nav class="navbar navbar-sop navbar-fixed-top" role="navigation">
 <div class="container-fluid">
 <div class="navbar-header">
-<a class="navbar-brand" href="../soporte.php?view=ticket"><i class="fa fa-laptop"></i>&nbsp;&nbsp;Checador Virtual
+<a class="navbar-brand" href="#"><i class="fa fa-laptop"></i>&nbsp;&nbsp;Checador Virtual
 </div>
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 <?php if(isset($_SESSION['tipo']) && isset($_SESSION['nombre'])): ?>
@@ -36,6 +36,9 @@ a.navbar-brand {
     <a class="dropdown-toggle" data-toggle="dropdown">
     <span class="glyphicon glyphicon-user"></span> &nbsp; <?php echo $_SESSION['nombre_completo']; ?>
     </a>
+    <li class="nav-item">
+        <a class="nav-link" href="../process/logouti.php">Cerrar Sesión</a>
+    </li>
 <?php endif; ?>
 </div>
 </div>

@@ -40,6 +40,9 @@ a:hover {
     <a class="dropdown-toggle" data-toggle="dropdown">
     <span class="glyphicon glyphicon-user"></span> &nbsp; <?php echo $_SESSION['nombre_completo']; ?>
     </a>
+    <li class="nav-item">
+        <a class="nav-link" href="../../process/logouti.php" style="color: red;">Cerrar Sesión</a>
+    </li>
 <?php endif; ?>
 </div>
 </div>
