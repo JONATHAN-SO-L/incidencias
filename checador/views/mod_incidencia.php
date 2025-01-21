@@ -157,7 +157,7 @@ if ($buscar_incidencia -> rowCount() > 0) {
         <div class="col-sm-10">
         <div class="input-group">
         <select class="form-control" name="motivo_ausencia" onclick="toggle(this);" required>
-        <option value="0">'.$incidencia -> motivo_ausencia.' - (Actual) </option>
+        <option value="'.$incidencia -> motivo_ausencia.'">'.$incidencia -> motivo_ausencia.' - (Actual) </option>
         ';
         $m_ausencia = $con->prepare("SELECT motivo_ausencia FROM motivo_ausencia ORDER BY motivo_ausencia ASC");
         $m_ausencia->setFetchMode(PDO::FETCH_OBJ);
@@ -296,6 +296,7 @@ include "../../inc/footer_rh.php";
       <div class="col-sm-1">&nbsp;</div>
     </div>
   </div>
+  <meta http-equiv="refresh" content="0; url=soporte.php?view=soporte"/>
   <?php
 }
 ?>

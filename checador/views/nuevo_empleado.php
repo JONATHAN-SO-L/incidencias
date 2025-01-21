@@ -3,45 +3,49 @@ session_start();
 
 if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH" || $_SESSION['tipo']=="admin"){
     
-    require '../../inc/navbarchk.php';
+    require '../../inc/navbarchkad.php';
     require '../functions/links2.php';
-
-    if (isset($_POST['guardar_puesto'])) { ?>
-    <img src="../../img/spin_carga.gif" alt="Pantalla de carga" style="heigth: 100%; width: 100%;">
-    <?php
-    // Recepción de los valores a guardar
-    $nombre_area = $_POST['nombre_area'];
-    $nombre_puesto = $_POST['nombre_puesto'];
-    $registra_data = $_POST['registra_data'];
-
-    // Conexión a base de datos
     require '../config.php';
 
-    // Comprobación de la existencia del empleado a través de la clave o número de empleado
-    $existe_empleado = $con -> prepare("SELECT no_empleado FROM empleados WHERE no_empleado = '$no_empleado'");
-    $existe_empleado->setFetchMode(PDO::FETCH_OBJ);
-    $existe_empleado->execute();
+    if (isset($_POST['guardar_empleado'])) { ?>
+        <img src="../../img/spin_carga.gif" alt="Pantalla de carga" style="heigth: 100%; width: 100%;">
+        <?php
+        // Obtiene datos del formulario
+        $no_empleado = $_POST['no_empleado'];
+        // Valida que el colaborador no exista en base al número/clave de empleado
+        $buscar_empleado = $con->prepare("SELECT no_empleado FROM veco_do.empleados WHERE no_empleado = '$no_empleado'");
+        $buscar_empleado->setFetchMode(PDO::FETCH_OBJ);
+        $buscar_empleado->execute();
 
-    $valida_puesto = $existe_empleado -> fetchAll();
+        $mostrar_empleados = $buscar_empleado->fetchAll();
 
-    /*if ($existe_empleado -> rowCount() > 0) {
-        echo '<script>alert("El empleado '.$.' con clave '.$no_empleado.'ya existe, por favor, inténtalo de nuevo por favor o contacta al Soporte Técnico")</script>';
-        echo '<meta http-equiv="refresh" content="0; url=nuevo_empleado.php">';
-        } else {
-            // Registro de información
-            $registra_puesto = $con->prepare("INSERT INTO puestos (area, puesto, registra_data) VALUES (?, ?, ?)");
-            $val_registro_puesto = $registra_puesto->execute([$nombre_area, $nombre_puesto, $registra_data]);
-
-            if ($val_registro_puesto) {
-            echo '<script>alert("¡Registro exitoso del puesto '.$nombre_puesto.'!")</script>';
-            echo '<meta http-equiv="refresh" content="0; url=empleados.php">';
-            } else {
-            echo '<script>alert("Ocurrió un problema al guardar los datos del puesto, inténtalo de nuevo por favor o contacta al Soporte Técnico")</script>';
+        if ($buscar_empleado -> rowCount() > 0) {
+            $no_empleado = $_POST['no_empleado'];
+            echo '<script>alert("No fue posible registrar el nuevo colaborador ya que el código de empleado: '.$no_empleado.' ya existe, por favor, inténtalo de nuevo")</script>';
             echo '<meta http-equiv="refresh" content="0; url=nuevo_empleado.php">';
+            die();
+        } else {
+            foreach ($mostrar_empleados as $empleado_number) {
+                $no_empleado = $empleado_number -> no_empleado;
             }
-        }*/
-    }
+            $nombre_colaborador = $_POST['nombre_colaborador'];
+            $area = $_POST['area'];
+            $registra_data = $_POST['registra_data'];
 
+            // Registro del información en DDBB
+            $save_collab = $con->prepare("INSERT INTO veco_do.empleados (nombre_colaborador, no_empleado, area, registra_data) VALUES (?, ?, ?, ?)");
+            $val_save_collab = $save_collab->execute([$nombre_colaborador, $no_empleado, $area, $registra_data]);
+
+            if ($val_save_collab) {
+                echo '<meta http-equiv="refresh" content="0; url=nuevo_empleado2.php?'.$no_empleado.'">';
+            } else {
+                echo '<script>alert("Ocurrió un problema al guardar los datos del empleado, inténtalo de nuevo por favor o contacta al Soporte Técnico")</script>';
+                echo '<meta http-equiv="refresh" content="0; url=nuevo_empleado.php">';
+            }
+        }
+    } else {
+        echo '<script>console.log("No se recibió acción del botón")</script>';
+    }
 ?>
 
 <style>
@@ -53,12 +57,13 @@ display:none;
 
 
         <!--************************************ Page content******************************-->
-		<div class="container">
+		<div class="container"><br><br><br>
           <div class="row">
             <div class="col-sm-12">
               <div class="page-header2">
-                <h1 class="animated lightSpeedIn">Registro de Empleados</h1>
+                <h1 class="animated lightSpeedIn"><strong>Registro de Empleados</strong></h1>
                 <span class="label label-danger">Desarrollo Organizacional</span><br><br>
+                <a href="empleados.php" class="btn-sm btn btn-danger pull-right"><i class="fa fa-arrow-circle-left"></i> Regresar a los empleados</a><br><br>
               </div>
             </div>
           </div>
@@ -66,19 +71,19 @@ display:none;
         
         <div class="container">
         <div class="alert alert-warning">
-            <strong>¡RECUERDA!</strong> No utilices acentos para registrar los nombres.
+            <strong>¡RECUERDA!</strong> No utilices acentos para registrar los nombres.<br>
+            <strong>¡IMPORTANTE!</strong> El formulario se irá actualizando conforme vayas guardando datos.
         </div>
         </div>
 	 <!--************************************ Page content******************************-->	
 		
 <div class="container">
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-12">
       <div class="panel panel-success">
         <div class="panel-heading text-center"><strong>Para poder registrar un empleado nuevo debes de llenar todos los campos de este formulario</strong></div>
         <div class="panel-body">
             <form role="form" action="" method="POST">
-			
             <div class="form-group">
             <label class="control-label"><i class="fa fa-user"></i>&nbsp;Nombre Completo del Colaborador <i>(Evita usar acentos)</i></label>
             <input type="text" class="form-control" name="nombre_colaborador" placeholder="Ejemplo: Raquel Arizmendi Garcia" required maxlength="50"><br>
@@ -100,37 +105,14 @@ display:none;
 
                 if ($buscar_area -> rowCount() > 0) {
                     foreach ($show_areas as $area) {
-                        echo '<option value="'.$area -> area.'">'.$area -> area.'</option>';
+                        $area = $area -> area;
+                        echo '<option value="'.$area.'">'.$area.'</option>';
                     }
                 } else {
-                    echo '<h2 class="text-center">No se encontraron areas registradas en el sistema, por favor, verifícalo en la Administración de las Áreas</h2>';
+                    echo '<h2 class="text-center">No se encontraron áreas registradas en el sistema, por favor, verifícalo en la <strong>Administración de las Áreas</strong></h2>';
                 }
                 ?>
             </select><br>
-
-            <label class="control-label"><i class="fa fa-user"></i>&nbsp;Línea / Departamento</label>
-            <select class="form-control" name="linea" id="linea" required>
-                <option value=""> - Selecciona el departamentos correspondiente - </option>
-            </select><br>
-
-            <label class="control-label"><i class="fa fa-user"></i>&nbsp;Puesto</label>
-            <select class="form-control" name="puesto" id="puesto" required>
-                <option value=""> - Selecciona el puesto correspondiente - </option>
-            </select><br>
-
-            <label class="control-label"><i class="fa fa-user"></i>&nbsp;Sede</label>
-            <select class="form-control" name="sede" id="sede" required>
-                <option value=""> - Selecciona la sede del colaborador - </option>
-                <option value="CDMX">CDMX</option>
-                <option value="Morelos">Morelos</option>
-                <option value="Externo">Externo</option>
-            </select><br>
-
-            <label class="control-label"><i class="fa fa-user"></i>&nbsp;Jefe Inmediato</label>
-            <select class="form-control" name="gerente_jefe" id="gerente_jefe" required>
-                <option value=""> - Selecciona el jefe directo del colaborador - </option>
-            </select><br>
-
             </div><br>
 
             <input type="hidden" value="<?php echo $_SESSION['nombre_completo'] ?>" name="registra_data">
@@ -140,16 +122,10 @@ display:none;
         </div>
       </div>
     </div>
-
-    <!--div class="col-sm-4 text-center hidden-xs">
-      <img src="img/linux.png" class="img-responsive" alt="Image">
-      <h2 class="text-primary">¡Gracias! Por preferirnos</h2>
-    </div-->
-
   </div>
 </div>
 
-<?php
+<?php include "../../inc/footer_rh.php";
 }else{
 ?>
     <div class="container">
@@ -165,6 +141,7 @@ display:none;
             <div class="col-sm-1">&nbsp;</div>
         </div>
     </div>
+    <meta http-equiv="refresh" content="0; url=../../soporte.php?view=soporte"/>
 <?php
 }
 ?>

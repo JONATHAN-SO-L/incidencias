@@ -101,7 +101,7 @@ include "../../inc/footer_rh.php";
       <div class="col-sm-1">&nbsp;</div>
     </div>
   </div>
-  
+  <meta http-equiv="refresh" content="0; url=soporte.php?view=soporte"/>
   <?php
 }
 ?>

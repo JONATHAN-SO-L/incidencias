@@ -3,7 +3,7 @@ session_start();
 
 if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH" || $_SESSION['tipo']=="admin"){
     
-    require '../../inc/navbarchk.php';
+    require '../../inc/navbarchkad.php';
     require '../functions/links2.php';
 
     if (isset($_POST['guardar_area'])) { ?>
@@ -12,6 +12,7 @@ if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH"
     // Recepción de los valores a guardar
     $nombre_area = $_POST['nombre_area'];
     $registra_data = $_POST['registra_data'];
+    $fecha_hora_registro = date("Y-m-d H:i:s");
 
     // Conexión a base de datos
     require '../config.php';
@@ -28,8 +29,8 @@ if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH"
         echo '<meta http-equiv="refresh" content="0; url=nueva_area.php">';
         } else {
             // Registro de información
-            $registra_area = $con->prepare("INSERT INTO areas (area, registra_data) VALUES (?, ?)");
-            $val_registro_area = $registra_area->execute([$nombre_area, $registra_data]);
+            $registra_area = $con->prepare("INSERT INTO areas (area, registra_data, fecha_hora_registro) VALUES (?, ?, ?)");
+            $val_registro_area = $registra_area->execute([$nombre_area, $registra_data, $fecha_hora_registro]);
 
             if ($val_registro_area) {
             echo '<script>alert("¡Registro exitoso del área '.$nombre_area.'!")</script>';
@@ -52,12 +53,13 @@ display:none;
 
 
         <!--************************************ Page content******************************-->
-		<div class="container">
+		<div class="container"><br><br><br>
           <div class="row">
             <div class="col-sm-12">
               <div class="page-header2">
-                <h1 class="animated lightSpeedIn">Registro de Áreas</h1>
+                <h1 class="animated lightSpeedIn"><strong>Registro de Áreas</strong></h1>
                 <span class="label label-danger">Desarrollo Organizacional</span><br><br>
+                <a href="areas.php" class="btn-sm btn btn-danger pull-right"><i class="fa fa-arrow-circle-left"></i> Regresar a las áreas</a><br><br>
               </div>
             </div>
           </div>
@@ -72,7 +74,7 @@ display:none;
 		
 <div class="container">
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-12">
       <div class="panel panel-success">
         <div class="panel-heading text-center"><strong>Para poder registrar un empleado nuevo debes de llenar todos los campos de este formulario</strong></div>
         <div class="panel-body">
@@ -90,16 +92,10 @@ display:none;
         </div>
       </div>
     </div>
-
-    <!--div class="col-sm-4 text-center hidden-xs">
-      <img src="img/linux.png" class="img-responsive" alt="Image">
-      <h2 class="text-primary">¡Gracias! Por preferirnos</h2>
-    </div-->
-
   </div>
 </div>
 
-<?php
+<?php include "../../inc/footer_rh.php";
 }else{
 ?>
     <div class="container">
@@ -115,6 +111,7 @@ display:none;
             <div class="col-sm-1">&nbsp;</div>
         </div>
     </div>
+    <meta http-equiv="refresh" content="0; url=soporte.php?view=soporte"/>
 <?php
 }
 ?>

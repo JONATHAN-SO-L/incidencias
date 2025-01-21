@@ -3,7 +3,7 @@ session_start();
 
 if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH" || $_SESSION['tipo']=="admin"){
     
-    require '../../inc/navbarchk.php';
+    require '../../inc/navbarchkad.php';
     require '../functions/links2.php';
 
     if (isset($_POST['guardar_puesto'])) { ?>
@@ -13,12 +13,13 @@ if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH"
     $nombre_area = $_POST['nombre_area'];
     $nombre_puesto = $_POST['nombre_puesto'];
     $registra_data = $_POST['registra_data'];
+    $fecha_hora_registro = date("Y-m-d H:i:s");
 
     // Conexión a base de datos
     require '../config.php';
 
     // Comprobación de la existencia del puesto
-    $existe_puesto = $con -> prepare("SELECT puesto FROM puestos WHERE puesto = '$nombre_puesto'");
+    $existe_puesto = $con -> prepare("SELECT puesto FROM puestos WHERE puesto LIKE '%$nombre_puesto%' AND area LIKE '%$nombre_area%'");
     $existe_puesto->setFetchMode(PDO::FETCH_OBJ);
     $existe_puesto->execute();
 
@@ -29,11 +30,11 @@ if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH"
         echo '<meta http-equiv="refresh" content="0; url=nuevo_puesto.php">';
         } else {
             // Registro de información
-            $registra_puesto = $con->prepare("INSERT INTO puestos (area, puesto, registra_data) VALUES (?, ?, ?)");
-            $val_registro_puesto = $registra_puesto->execute([$nombre_area, $nombre_puesto, $registra_data]);
+            $registra_puesto = $con->prepare("INSERT INTO puestos (area, puesto, registra_data, fecha_hora_registro) VALUES (?, ?, ?, ?)");
+            $val_registro_puesto = $registra_puesto->execute([$nombre_area, $nombre_puesto, $registra_data, $fecha_hora_registro]);
 
             if ($val_registro_puesto) {
-            echo '<script>alert("¡Registro exitoso del puesto '.$nombre_puesto.'!")</script>';
+            echo '<script>alert("¡Registro exitoso del puesto '.$nombre_puesto.' para el área '.$nombre_area.'!")</script>';
             echo '<meta http-equiv="refresh" content="0; url=puestos.php">';
             } else {
             echo '<script>alert("Ocurrió un problema al guardar los datos del puesto, inténtalo de nuevo por favor o contacta al Soporte Técnico")</script>';
@@ -53,12 +54,13 @@ display:none;
 
 
         <!--************************************ Page content******************************-->
-		<div class="container">
+		<div class="container"><br><br><br>
           <div class="row">
             <div class="col-sm-12">
               <div class="page-header2">
-                <h1 class="animated lightSpeedIn">Registro de Puestos</h1>
+                <h1 class="animated lightSpeedIn"><strong>Registro de Puestos</strong></h1>
                 <span class="label label-danger">Desarrollo Organizacional</span><br><br>
+                <a href="puestos.php" class="btn-sm btn btn-danger pull-right"><i class="fa fa-arrow-circle-left"></i> Regresar a los puestos</a><br><br>
               </div>
             </div>
           </div>
@@ -73,7 +75,7 @@ display:none;
 		
 <div class="container">
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-12">
       <div class="panel panel-success">
         <div class="panel-heading text-center"><strong>Para poder registrar un puesto nuevo debes de llenar todos los campos de este formulario</strong></div>
         <div class="panel-body">
@@ -113,16 +115,10 @@ display:none;
         </div>
       </div>
     </div>
-
-    <!--div class="col-sm-4 text-center hidden-xs">
-      <img src="img/linux.png" class="img-responsive" alt="Image">
-      <h2 class="text-primary">¡Gracias! Por preferirnos</h2>
-    </div-->
-
   </div>
 </div>
 
-<?php
+<?php include "../../inc/footer_rh.php";
 }else{
 ?>
     <div class="container">
@@ -138,6 +134,7 @@ display:none;
             <div class="col-sm-1">&nbsp;</div>
         </div>
     </div>
+    <meta http-equiv="refresh" content="0; url=soporte.php?view=soporte"/>
 <?php
 }
 ?>
