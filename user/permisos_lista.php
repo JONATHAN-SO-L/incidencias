@@ -1,6 +1,8 @@
 <?php
 session_start();
-if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH" || $_SESSION['tipo']=="admin"){ ?>
+if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH" || $_SESSION['tipo']=="admin"){
+    require '../checador/config.php';
+?>
 
 <style>
 .page-header{
@@ -44,7 +46,7 @@ footer {
             <div class="col-sm-9">
             <form action="../checador/functions/search/incidencias_csv.php" method="POST">
                 <input type="submit" name="buscar_permisos" class="btn btn-success btn-sm pull-right" value="Descargar CSV" style="margin-left: 2%;">
-                <input type="date" name="fecha2" class="pull-right" required style="margin-left: 2%;">
+                <input type="date" name="fecha2" class="pull-right" min="2024-09-01" required style="margin-left: 2%;">
                 <label class="pull-right" style="margin-left: 4%;">Fecha de fin:</label>
                 <input type="date" name="fecha1" class="pull-right" min="2024-09-01" required style="margin-left: 2%;">
                 <label class="pull-right">Fecha de inicio:</label>
@@ -61,13 +63,47 @@ footer {
 
         </div>
         </div><br>
+
+<!--------------------------------------------
+Pildoras de de división para mostrar las sedes
+--------------------------------------------->
+<?php
+// Consulta para obtener el número de registros por sede
+//CDMX
+$s_permiso_cdmx = $con->prepare("SELECT COUNT(*) FROM veco_do.permisos WHERE sede = 'CDMX'");
+$s_permiso_cdmx->execute();
+$total_permisos_cdmx = $s_permiso_cdmx->fetchColumn();
+
+//MORELOS
+$s_permiso_morelos = $con->prepare("SELECT COUNT(*) FROM veco_do.permisos WHERE sede = 'Morelos'");
+$s_permiso_morelos->execute();
+$total_permisos_morelos = $s_permiso_morelos->fetchColumn();
+
+//EXTERNOS
+$s_permiso_externo = $con->prepare("SELECT COUNT(*) FROM veco_do.permisos WHERE sede = 'Externo'");
+$s_permiso_externo->execute();
+$total_permisos_externos = $s_permiso_externo->fetchColumn();
+?>
+
+<div class="container mt-3">
+  <ul class="nav nav-pills nav-justified">
+    <li class="nav-item">
+      <a class="nav-link" href="permisos_lista_cdmx.php"><strong>CDMX</strong>&nbsp;&nbsp;<span class="badge rounded-pill bg-primary"><?php echo $total_permisos_cdmx?></span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="permisos_lista_morelos.php"><strong>MORELOS</strong>&nbsp;&nbsp;<span class="badge rounded-pill bg-primary"><?php echo $total_permisos_morelos?></span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="permisos_lista_externos.php"><strong>EXTERNO</strong>&nbsp;&nbsp;<span class="badge rounded-pill bg-primary"><?php echo $total_permisos_externos?></span></a>
+    </li>
+  </ul>
+</div>
+
 <?php
 /************************
 Búsqueda de incidencia
 ************************/
 if (isset($_POST['buscar_in'])) {
-    require '../checador/config.php';
-
     //La incidencia puede ser el folio, la clave del colaborador o el nombre del mismo
     $palabra_clave = $_POST['buscar_incidencia']; ?>
 
