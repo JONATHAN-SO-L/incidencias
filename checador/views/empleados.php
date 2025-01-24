@@ -1,7 +1,7 @@
 <?php
 session_start();
 if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH" || $_SESSION['tipo']=="admin"){
-    
+    require '../config.php';
     require '../../inc/navbarchkad.php';
 ?>
 
@@ -59,13 +59,45 @@ footer {
                </p>
             </div>
         </div>
-        </div>
-        
-        <br><br>
+        </div><br>
+
+<!--------------------------------------------
+Pildoras de de división para mostrar las sedes
+--------------------------------------------->
+<?php
+// Consulta para obtener el número de registros por sede
+//CDMX
+$s_empleados_cdmx = $con->prepare("SELECT COUNT(*) FROM veco_do.empleados WHERE sede = 'CDMX'");
+$s_empleados_cdmx->execute();
+$total_empleados_cdmx = $s_empleados_cdmx->fetchColumn();
+
+//MORELOS
+$s_empleados_morelos = $con->prepare("SELECT COUNT(*) FROM veco_do.empleados WHERE sede = 'Morelos'");
+$s_empleados_morelos->execute();
+$total_empleados_morelos = $s_empleados_morelos->fetchColumn();
+
+//EXTERNOS
+$s_empleados_externo = $con->prepare("SELECT COUNT(*) FROM veco_do.empleados WHERE sede = 'Externo'");
+$s_empleados_externo->execute();
+$total_empleados_externos = $s_empleados_externo->fetchColumn();
+?>
+
+<div class="container mt-3">
+  <ul class="nav nav-pills nav-justified">
+    <li class="nav-item">
+      <a class="nav-link" href="empleados_cdmx.php"><strong>CDMX</strong>&nbsp;&nbsp;<span class="badge rounded-pill bg-primary"><?php echo $total_empleados_cdmx?></span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="empleados_morelos.php"><strong>MORELOS</strong>&nbsp;&nbsp;<span class="badge rounded-pill bg-primary"><?php echo $total_empleados_morelos?></span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="empleados_externos.php"><strong>EXTERNO</strong>&nbsp;&nbsp;<span class="badge rounded-pill bg-primary"><?php echo $total_empleados_externos?></span></a>
+    </li>
+  </ul>
+</div><br>
 
         <?php
         if (isset($_POST['buscar_employee'])) {
-            require '../config.php';
             $palabra_clave = $_POST['buscar_empleado']; ?>
             <div class="container">
                 <br>

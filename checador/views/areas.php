@@ -99,7 +99,7 @@ footer {
                                             <tr>
                                                 <td class='text-center'>
                                                     <a href='mod_area.php?".$areas->id_area."' class='btn btn-sm btn-warning' title='Modificar'><i class='fa fa-eye' aria-hidden='true'></i> Modificar</a>
-                                                    <a href='#?".$areas->id_area."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a>
+                                                    <a href='drop_area.php?".$areas->id_area."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a>
                                                 </td>"
                                         ?>
                                                 <td class="text-center"><strong><?php echo $areas->id_area; ?></strong></td>
