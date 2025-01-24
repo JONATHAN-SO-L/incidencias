@@ -149,7 +149,7 @@ if (isset($_POST['buscar_in'])) {
                                                     <a href='ver_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-primary' title='Ver Incidencia'><i class='fa fa-eye' aria-hidden='true'></i> Ver Detalles</a>
                                                     <a href='../checador/formatos/permiso_pdf.php?".$permiso->id_permiso."' class='btn btn-sm btn-success' title='Imprimir' target='_blank'><i class='fa fa-eye' aria-hidden='true'></i> Imprimir</a>
                                                     <a href='../checador/views/mod_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-warning' title='Modificar'><i class='fa fa-eye' aria-hidden='true'></i> Modificar</a>
-                                                    <a href='../checador/views/drop_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a>
+                                                    <!--a href='../checador/views/drop_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a-->
                                                 </td>"
                                         ?>
                                                 <td class="text-center"><strong><?php echo $permiso->id_permiso; ?></strong></td>
@@ -218,7 +218,7 @@ if (isset($_POST['buscar_in'])) {
                             <a href='ver_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-primary' title='Ver Incidencia'><i class='fa fa-eye' aria-hidden='true'></i> Ver Detalles</a>
                             <a href='../checador/formatos/permiso_pdf.php?".$permiso->id_permiso."' class='btn btn-sm btn-success' title='Imprimir' target='_blank'><i class='fa fa-eye' aria-hidden='true'></i> Imprimir</a>
                             <a href='../checador/views/mod_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-warning' title='Modificar'><i class='fa fa-eye' aria-hidden='true'></i> Modificar</a>
-                            <a href='../checador/views/drop_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a>
+                            <!--a href='../checador/views/drop_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a-->
                         </td>"
                 ?>
                         <td class="text-center"><strong><?php echo $permiso->id_permiso; ?></strong></td>

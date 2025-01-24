@@ -149,7 +149,7 @@ if (isset($_POST['buscar_in'])) {
                                                     <a href='ver_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-primary' title='Ver Incidencia'><i class='fa fa-eye' aria-hidden='true'></i> Ver Detalles</a>
                                                     <a href='../checador/formatos/permiso_pdf.php?".$permiso->id_permiso."' class='btn btn-sm btn-success' title='Imprimir' target='_blank'><i class='fa fa-eye' aria-hidden='true'></i> Imprimir</a>
                                                     <a href='../checador/views/mod_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-warning' title='Modificar'><i class='fa fa-eye' aria-hidden='true'></i> Modificar</a>
-                                                    <a href='../checador/views/drop_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a>
+                                                    <!--a href='../checador/views/drop_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a-->
                                                 </td>"
                                         ?>
                                                 <td class="text-center"><strong><?php echo $permiso->id_permiso; ?></strong></td>
@@ -182,6 +182,10 @@ if (isset($_POST['buscar_in'])) {
 
 <?php } else {
     require '../checador/config.php';
+    // Contador de totales
+    $total_permisos = $con->prepare("SELECT COUNT(*) FROM permisos");
+    $total_permisos->execute();
+    $num_total_permisos = $total_permisos->fetchColumn();
 
     $buscar_permisos = $con->prepare("SELECT * FROM permisos ORDER BY id_permiso DESC");
     $buscar_permisos->setFetchMode(PDO::FETCH_OBJ);
@@ -193,6 +197,7 @@ if (isset($_POST['buscar_in'])) {
     <div class="container"><br>
                 <div class="row">
                     <div class="col-md-12">
+                    <label>Total: <span class="badge bg-success"><?php echo $num_total_permisos; ?></span></label><br><br>
         <div class="table-responsive">
             <table class="table table-hover table-striped table-bordered">
                 <thead>
@@ -218,7 +223,7 @@ if (isset($_POST['buscar_in'])) {
                             <a href='ver_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-primary' title='Ver Incidencia'><i class='fa fa-eye' aria-hidden='true'></i> Ver Detalles</a>
                             <a href='../checador/formatos/permiso_pdf.php?".$permiso->id_permiso."' class='btn btn-sm btn-success' title='Imprimir' target='_blank'><i class='fa fa-eye' aria-hidden='true'></i> Imprimir</a>
                             <a href='../checador/views/mod_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-warning' title='Modificar'><i class='fa fa-eye' aria-hidden='true'></i> Modificar</a>
-                            <a href='../checador/views/drop_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a>
+                            <!--a href='../checador/views/drop_incidencia.php?".$permiso->id_permiso."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a-->
                         </td>"
                 ?>
                         <td class="text-center"><strong><?php echo $permiso->id_permiso; ?></strong></td>
