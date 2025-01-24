@@ -35,7 +35,7 @@ if (isset($_POST['borrar_registro'])) {
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
         <h4 class="text-center"><strong>REGISTRO ELIMINADO</strong></h4>
         <p class="text-center">
-        Se eliminado correctamente el área '.$area.' con folio <strong><u>#'.$id_area.'</u></strong>.
+        Se ha eliminado correctamente el área '.$area.' con folio <strong><u>#'.$id_area.'</u></strong>.
         </p>
         </div>
         ';
