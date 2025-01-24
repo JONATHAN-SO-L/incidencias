@@ -39,7 +39,8 @@ if($_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH" 
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-12"><br><br><br>
+        <div class="col-sm-12">
+        <a href="../../soporte.php" class="btn-sm btn btn-danger pull-left"><i class="fa fa-arrow-circle-left"></i> Salir al Inicio</a><br><br><br>
             <div class="panel panel-success">
             <div class="panel-heading">
             <h3 class="panel-title text-center"><strong><i class="fa fa-ticket"></i><center>Selecciona la herramienta que deseas utilizar</center></strong></h3>
