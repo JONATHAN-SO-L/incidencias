@@ -33,6 +33,17 @@ if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH"
             $val_registro_incidencia = $registra_incidencia->execute([$motivo_ausencia, $registra_data, $fecha_hora_registro]);
 
             if ($val_registro_incidencia) {
+            $asunto = "PERMISOS | Incidencia / Motivo de Ausentismo nuevo";
+            $destinatario = "tecnicos@veco.lat";
+            $cabecera = "From: <noreply@veco.lat>";
+            $mensaje = "Se notifica que el motivo de ausentismo ".$motivo_ausencia." ha sido registrado exitosamente el ".$fecha_hora_registro." por ".$registra_data." en el Software de Permisos.\n\n
+            Por favor, contacte con el área corrspondiente para definir el alcance y el comportamiento de esta nueva opción en el sistema.\n\n
+            Atentamente\n\n
+            Soporte Devinsa\n\n
+            tecnicos@veco.lat";
+
+            mail($destinatario, $asunto, $mensaje, $cabecera);
+
             echo '<script>alert("¡Registro exitoso de la nueva incidencia '.$motivo_ausencia.'")</script>';
             echo '<meta http-equiv="refresh" content="0; url=motivos_ausencia.php">';
             } else {
