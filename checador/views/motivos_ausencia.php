@@ -105,7 +105,7 @@ footer {
                                         <tr>
                                             <td class='text-center'>
                                                 <a href='mod_motivos.php?".$descripcion->id_motivo."' class='btn btn-sm btn-warning' title='Modificar'><i class='fa fa-eye' aria-hidden='true'></i> Modificar</a>
-                                                <a href='drop_motivos.php?".$descripcion->id_motivo."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a>
+                                                <!--a href='drop_motivos.php?".$descripcion->id_motivo."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a-->
                                             </td>"
                                     ?>
                                             <td class="text-center"><strong><?php echo $descripcion->id_motivo; ?></strong></td>
@@ -163,7 +163,7 @@ footer {
                                         <tr>
                                             <td class='text-center'>
                                                 <a href='mod_motivos.php?".$descripcion->id_motivo."' class='btn btn-sm btn-warning' title='Modificar'><i class='fa fa-eye' aria-hidden='true'></i> Modificar</a>
-                                                <a href='drop_motivos.php?".$descripcion->id_motivo."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a>
+                                                <!--a href='drop_motivos.php?".$descripcion->id_motivo."' class='btn btn-sm btn-danger' title='Eliminar'><i class='fa fa-eye' aria-hidden='true'></i> Eliminar</a-->
                                             </td>"
                                     ?>
                                             <td class="text-center"><strong><?php echo $descripcion->id_motivo; ?></strong></td>
