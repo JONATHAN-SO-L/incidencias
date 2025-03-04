@@ -40,7 +40,7 @@ if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="RH"
         $fecha_hora_registro = date("Y-m-d H:i:s");
 
         // Guardar nuevos datos en el registro del empleado
-        $guardar_empleado = $con->prepare("UPDATE empleados SET linea = ?, puesto = ?, sede = ?, gerente_jefe = ?, registra_data = ?, fecha_hora_registro = ?");
+        $guardar_empleado = $con->prepare("UPDATE empleados SET linea = ?, puesto = ?, sede = ?, gerente_jefe = ?, registra_data = ?, fecha_hora_registro = ? WHERE no_empleado = '$id_empleado'");
         $val_guardar_empleado = $guardar_empleado -> execute([$linea, $puesto, $sede, $gerente_jefe, $registra_data, $fecha_hora_registro]);
 
         if ($val_guardar_empleado) {
