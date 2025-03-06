@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
--- Host: localhost    Database: veco_do
+-- Host: veco.lat    Database: veco_do
 -- ------------------------------------------------------
--- Server version	5.5.5-10.4.32-MariaDB
+-- Server version	5.5.5-10.4.28-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,7 +30,7 @@ CREATE TABLE `areas` (
   `modifica_data` text DEFAULT NULL,
   `fecha_hora_modificacion` text DEFAULT NULL,
   PRIMARY KEY (`id_area`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,18 +44,18 @@ CREATE TABLE `empleados` (
   `id_empleado` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nombre_colaborador` text NOT NULL,
   `no_empleado` varchar(10) NOT NULL,
-  `puesto` text NOT NULL,
-  `linea` text NOT NULL,
+  `puesto` text DEFAULT NULL,
+  `linea` text DEFAULT NULL,
   `area` text NOT NULL,
-  `sede` text NOT NULL,
-  `gerente_jefe` text NOT NULL,
+  `sede` text DEFAULT NULL,
+  `gerente_jefe` text DEFAULT NULL,
   `registra_data` text NOT NULL,
   `fecha_hora_registro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `modifica_data` text NOT NULL,
-  `fecha_hora_modificacion` text NOT NULL,
+  `modifica_data` text DEFAULT NULL,
+  `fecha_hora_modificacion` text DEFAULT NULL,
   PRIMARY KEY (`id_empleado`),
   UNIQUE KEY `empleados_unique` (`no_empleado`)
-) ENGINE=InnoDB AUTO_INCREMENT=250 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Información de los colaboradores de la compania';
+) ENGINE=InnoDB AUTO_INCREMENT=289 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Información de los colaboradores de la compania';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,7 +74,7 @@ CREATE TABLE `lineas` (
   `modifica_data` text DEFAULT NULL,
   `fecha_hora_modificacion` text DEFAULT NULL,
   PRIMARY KEY (`id_linea`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `motivo_ausencia` (
   `fecha_hora_modifica` text DEFAULT NULL,
   PRIMARY KEY (`id_motivo`),
   UNIQUE KEY `motivo_ausencia_unique` (`motivo_ausencia`) USING HASH
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,9 +128,9 @@ CREATE TABLE `permisos` (
   `registra_data` text NOT NULL,
   `fecha_hora_registro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `modifica_data` text DEFAULT NULL,
-  `fecha_hora_modificacion` text DEFAULT NULL,
+  `fecha_hora_modificacion` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_permiso`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Listado de permisos permitidos';
+) ENGINE=InnoDB AUTO_INCREMENT=1641 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Listado de permisos permitidos';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +149,7 @@ CREATE TABLE `puestos` (
   `modifica_data` text DEFAULT NULL,
   `fecha_hora_modificacion` text DEFAULT NULL,
   PRIMARY KEY (`id_puesto`)
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,4 +169,4 @@ CREATE TABLE `puestos` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-21  9:20:10
+-- Dump completed on 2025-03-06 13:10:42
